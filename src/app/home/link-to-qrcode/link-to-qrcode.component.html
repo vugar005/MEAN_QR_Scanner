@@ -1,0 +1,14 @@
+<div class="urlInput">
+  <form [formGroup]="qrForm" (ngSubmit)="generateQrCode()">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter URL" value="" [formControlName]="'urlName'">
+    </mat-form-field>
+    <button mat-button color="accent"> Generate</button>
+  </form>
+
+
+  <div class="qrBox " *ngIf="qrString">
+    <qrcode [qrdata]="qrString" [size]="256" [level]="'M'"></qrcode>
+  </div>
+
+</div>

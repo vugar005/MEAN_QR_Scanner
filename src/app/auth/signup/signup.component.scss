@@ -1,0 +1,76 @@
+:host {
+  display: block;
+}
+.form-group {
+  margin-bottom: 0;
+  width: 225px;
+}
+.checkbox {
+  padding-right: 5px;
+}
+recaptcha {
+  display: block;
+  width: 200px;
+}
+.mat-form-field {
+  width: 100%;
+}
+.singInContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 200px;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  .logo {
+    color: #aaaaaa;
+    font-weight: bold;
+    padding-bottom: 10px;
+    font-size: 25px;
+  }
+  .login-form {
+    font-size: 14px;
+    .main-login-form {
+      display: flex;
+      align-items: center;
+      .login-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .login-group-checkbox {
+          span {
+            color: #555555;
+          }
+        }
+      }
+      .login-button {
+        background: #ffffff;
+        color: #999999;
+        width: 50px;
+        height: 50px;
+        border: 5px solid #efefef;
+        border-radius: 50%;
+        outline: 0;
+        cursor: pointer;
+        margin-bottom: 7px;
+        transition: all ease-in-out 500ms;
+        &:hover {
+          color: #555555;
+          transform: rotate(450deg);
+        }
+      }
+    }
+    .etc-login-form {
+      padding: 10px 0;
+      p {
+        font-size: 14px;
+        color: #919191;
+      }
+      a {
+        color: #428bca;
+        text-decoration: none;
+      }
+    }
+  }
+}

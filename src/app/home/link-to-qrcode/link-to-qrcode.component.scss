@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+.urlInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 60px);
+}
+.qrBox {
+  padding-top: 20px;
+}

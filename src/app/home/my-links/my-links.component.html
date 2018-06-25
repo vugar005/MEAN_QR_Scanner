@@ -1,0 +1,33 @@
+<div *ngIf="!qrCodes" class="spinner">
+  <mat-progress-spinner
+    class="example-margin"
+    [color]="'primary'"
+    [mode]="'indeterminate'"
+  >
+  </mat-progress-spinner>
+</div>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let qr of qrCodes">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{qr.url}}
+            </mat-panel-title>
+            <mat-panel-description>
+             {{qr.date |  date:'MM/dd/yyyy' }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+               <qrcode [qrdata]="qr.url"  [level]="'M'" [size]="150"></qrcode>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="onRemove(qr?.id)">Delete</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+  </div>
+</div>
+

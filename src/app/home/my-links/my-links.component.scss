@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  padding-top: 50px;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 160px);
+  width: 100vw;
+}
