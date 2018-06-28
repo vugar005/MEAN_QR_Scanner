@@ -30,6 +30,7 @@ import { MyLinksComponent } from './home/my-links/my-links.component';
 import { registerLocaleData } from '@angular/common';
 import lcoaleAz from '@angular/common/locales/az-Latn';
 registerLocaleData(lcoaleAz);
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ registerLocaleData(lcoaleAz);
     ReactiveFormsModule,
     QRCodeModule,
     ZXingScannerModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [SharedService, AuthService, QrService,
   ],

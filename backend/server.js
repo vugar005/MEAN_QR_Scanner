@@ -1,26 +1,52 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const userRoutes = require("./routes/user.routes");
-const qrRoutes = require("./routes/qr.routes");
-const server = express();
-const mongoose = require('mongoose');
-mongoose
-  .connect(
-    "mongodb://vugar005:Vugar4991@ds217671.mlab.com:17671/mean_qr_scanner"
-  )
-  .then(() => {
-    console.log("Connected to database!");
-  })
-  .catch((er) => {
-    console.log(er);
-  });
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
-server.use(cors());
+const app = require("./app");
+const debug = require("debug")("node-angular");
+const http = require("http");
 
-server.use("/api/user", userRoutes);
-server.use("/api/qr", qrRoutes);
+const normalizePort = val => {
+ const port = parseInt(val, 10);
 
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-module.exports = server;
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+};
+
+const onError = error => {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
+
+const onListening = () => {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
+  debug("Listening on " + bind);
+};
+
+const port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
+
+const server = http.createServer(app);
+server.on("error", onError);
+server.on("listening", onListening);
+server.listen(port);

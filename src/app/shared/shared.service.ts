@@ -1,57 +1,19 @@
-import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NotificationsService} from 'angular2-notifications';
 
 @Injectable()
 export class SharedService {
-  constructor( private router: Router) {
-  }
+  constructor(private router: Router,
+              private notifications: NotificationsService
+  ) {}
 
-  // createNotification(type: string, message: string, title = '') {
-  //   switch (type) {
-  //     case 'success':
-  //       this.snotifyService.success(message, title, {
-  //         timeout: 3000,
-  //         showProgressBar: false,
-  //         closeOnClick: false,
-  //         pauseOnHover: true
-  //       });
-  //       break;
-  //     case 'error':
-  //       this.snotifyService.error(message, title, {
-  //         timeout: 3000,
-  //         showProgressBar: false,
-  //         closeOnClick: false,
-  //         pauseOnHover: true
-  //       });
-  //       break;
-  //     case 'warning':
-  //       this.snotifyService.warning(message, title, {
-  //         timeout: 3000,
-  //         showProgressBar: false,
-  //         closeOnClick: false,
-  //         pauseOnHover: true
-  //       });
-  //       break;
-  //   }
-  // }
-  //
-  // createError(er) {
-  //   return of(this.snotifyService.error(er, 'Error', {
-  //     timeout: 3000,
-  //     showProgressBar: false,
-  //     closeOnClick: false,
-  //     pauseOnHover: true
-  //   }));
-  // }
-  //
-  // handleError(res) {
-  //   if (res.status === 'success') {
-  //     return;
-  //   }
-  //   if (res.status === 'logout') {
-  //     this.router.navigateByUrl('/signin');
-  //     throw new Error('unauthorized');
-  //   }
-  //   return this.createError(res.message);
-  // }
+  createNotification(type: string, message: string, title = '') {
+    this.notifications.create(title, message, type, {
+      timeOut: 4000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true
+    });
+  }
 }

@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: '', component: HomeComponent, children: [
+      {path: '', redirectTo: 'link-to-qr', pathMatch: 'full'},
       {path: 'link-to-qr', component: LinkToQrcodeComponent},
       {path: 'qr-to-link', component: QrcodeToLinkComponent},
       {path: 'my-links', component: MyLinksComponent}

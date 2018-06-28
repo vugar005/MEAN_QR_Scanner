@@ -24,6 +24,8 @@ export class QrcodeToLinkComponent implements OnInit {
     });
   }
   onCamerasFound(cameras: MediaDeviceInfo[]) {
+    console.log('cameras');
+    console.log(cameras);
    if (cameras) {
      console.log(cameras)
      this.hasCameras = true;

@@ -3,7 +3,7 @@
 <mat-tab-group (focusChange)="openTab($event)">
   <mat-tab label="Link To QR Code" > </mat-tab>
   <mat-tab label="QR To URL Link" ></mat-tab>
-  <mat-tab label="My Links"></mat-tab>
+  <mat-tab label="My Links" *ngIf="authenticated"></mat-tab>
 </mat-tab-group>
 
 <router-outlet></router-outlet>

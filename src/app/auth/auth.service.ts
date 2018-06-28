@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
 import {ReplaySubject, Subject} from 'rxjs';
 import {AuthData} from './auth-data.model';
 import {User} from './models/user.model';
-
+import {SharedService} from '../shared/shared.service';
+import {environment} from '../../environments/environment';
+const BACKEND_URL = environment.apiUrl + '/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,7 +16,7 @@ export class AuthService {
   user: User;
   private authStatusListener = new ReplaySubject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
 
   getToken() {
     return this.token;
@@ -31,7 +33,7 @@ export class AuthService {
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post('http://localhost:3000/api/user/signup', authData)
+      .post(`${BACKEND_URL}/signup`, authData)
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['/']);
@@ -42,7 +44,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number; user: User }>(
-        'http://localhost:3000/api/user/login',
+        `${BACKEND_URL}/login`,
         authData
       )
       .subscribe(response => {
@@ -56,10 +58,14 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.user = fetchedUser;
           const now = new Date();
-          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 10000);
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate, fetchedUser);
           this.router.navigate(['/']);
+        }
+      }, (er: HttpErrorResponse) => {
+        if (er.error['message'] === 'Auth failed') {
+          this.sharedService.createNotification('error', 'Wrong username or password', 'OOPS');
         }
       });
   }

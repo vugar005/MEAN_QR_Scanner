@@ -12,7 +12,6 @@ try {
       match: {_id: {$eq: req.params.id.toString()}}
       }
     );
-  console.log(qrs)
   qrs = qrs.filter((q) => q.author);
   return res.status(200).json({
     message: 'ok',

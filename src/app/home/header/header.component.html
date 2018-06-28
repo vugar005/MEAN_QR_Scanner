@@ -3,9 +3,9 @@
     <p>Qr Scanner</p>
   </div>
   <div class="authActions">
-    <p *ngIf="authStatus" routerLink="/my-links" class="login"> My Links </p>
-    <p  *ngIf="!authStatus" routerLink="/login" class="login"> Login</p>
-    <p  *ngIf="authStatus" (click)="onLogout()" class="logout"> Logout</p>
-    <p class="signUp" *ngIf="!authStatus" routerLink="/signup">SignUp</p>
+    <p *ngIf="authenticated" routerLink="/my-links" class="login"> My Links </p>
+    <p  *ngIf="!authenticated" routerLink="/login" class="login"> Login</p>
+    <p  *ngIf="authenticated" (click)="onLogout()" class="logout"> Logout</p>
+    <p class="signUp" *ngIf="!authenticated" routerLink="/signup">SignUp</p>
   </div>
 </div>

@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:server": "nodemon server.js"
+    "start:server": "nodemon ./backend/server.js"
   },
   "private": true,
   "dependencies": {
@@ -24,9 +24,11 @@
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
     "@zxing/ngx-scanner": "^1.1.0",
+    "angular2-notifications": "^1.0.2",
     "angularx-qrcode": "^1.1.7",
     "animate.css": "^3.6.1",
     "bcrypt": "^2.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
@@ -37,6 +39,7 @@
     "mongoose": "^5.1.6",
     "mongoose-unique-validator": "^2.0.1",
     "node-sass": "^4.9.0",
+    "path": "^0.12.7",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
     "zone.js": "^0.8.26"

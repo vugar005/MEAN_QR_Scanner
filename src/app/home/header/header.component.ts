@@ -7,13 +7,13 @@ import {AuthService} from '../../auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-   authStatus: any;
+   authenticated: boolean;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authStatus = this.authService.getAuthStatusListener().subscribe((res) => {
+   this.authService.getAuthStatusListener().subscribe((res) => {
       console.log(res);
-      this.authStatus = res;
+      this.authenticated = res;
     });
   }
   onLogout() {

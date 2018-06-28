@@ -5,8 +5,10 @@ import {AuthService} from '../auth/auth.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {QrCode} from './models/qrCode';
+import {environment} from '../../environments/environment';
 declare var require: any;
 const CryptoJS = require('crypto-js');
+const BACKEND_URL = environment.apiUrl + '/qr';
 @Injectable()
 export class QrService {
   user: User;
@@ -25,7 +27,7 @@ export class QrService {
         url: cipherText,
          id: key
       };
-    this.http.post('http://localhost:3000/api/qr/add', qrCode, httpOptions)
+    this.http.post(`${BACKEND_URL}/add`, qrCode, httpOptions)
       .subscribe((res) => console.log(res), (er) => console.log(er));
   }
   getUser() {
@@ -34,7 +36,7 @@ export class QrService {
   getQrUrls(): Observable<QrCode[]> {
     this.user = this.getUser();
     const id: string = this.user ? this.user.id.toString() : '0';
-    return this.http.get(`http://localhost:3000/api/qr/${id}`)
+    return this.http.get(`${BACKEND_URL}/${id}`)
       .pipe(
         map((res: any) => res.result.map((qr) => this.mapQrCode(qr)))
       );
@@ -57,6 +59,6 @@ export class QrService {
     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }
   removeQr(id): Observable<any> {
-    return this.http.delete(`http://localhost:3000/api/qr/${id}`);
+    return this.http.delete(`${BACKEND_URL}/${id}`);
   }
 }
