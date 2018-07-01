@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QrService} from '../qr.service';
 import {User} from '../../auth/models/user.model';
 
@@ -17,16 +17,26 @@ export class LinkToQrcodeComponent implements OnInit {
     this.initForm();
   }
   generateQrCode() {
-    console.log(this.qrForm.value.urlName);
-    const user: User = JSON.parse(localStorage.getItem('qr_user'));
+    if (this.qrForm.valid) {
+      const user: User = JSON.parse(localStorage.getItem('qr_user'));
+     if (user) {
+       this.encryptWithUserId(user);
+     } else {
+        this.encryptWithoutUserId();
+     }
+    }
+  }
+  encryptWithUserId(user:User) {
     const id: string = user ? user.id.toString() : '0';
     this.qrString = this.qrService.encryptData( this.qrForm.value.urlName,  id);
     this.qrService.addQrUrl(this.qrForm.value.urlName);
-
+  }
+  encryptWithoutUserId() {
+     this.qrString = this.qrForm.value.urlName;
   }
   initForm() {
     this.qrForm = this.form.group({
-      'urlName': new FormControl('')
+      'urlName': new FormControl('', [Validators.required])
     });
   }
 }

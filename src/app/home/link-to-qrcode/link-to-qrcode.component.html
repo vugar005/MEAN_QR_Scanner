@@ -2,6 +2,8 @@
   <form [formGroup]="qrForm" (ngSubmit)="generateQrCode()">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Enter URL" value="" [formControlName]="'urlName'">
+      <span matPrefix>www. &nbsp;</span>
+      <mat-error *ngIf="qrForm.controls['urlName'].hasError('required')">URL daxil edilməyib</mat-error>
     </mat-form-field>
     <button mat-button color="accent"> Generate</button>
   </form>

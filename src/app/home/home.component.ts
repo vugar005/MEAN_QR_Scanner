@@ -10,6 +10,11 @@ import {AuthService} from '../auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   authenticated: boolean;
+  links = [
+    {path: '/link-to-qr', label: 'Link To QR Code' },
+    {path: '/qr-to-link', label: 'QR To URL Link' },
+    {path: '/my-links', label: 'My Links' }
+  ];
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
@@ -19,18 +24,4 @@ export class HomeComponent implements OnInit {
       this.authenticated = res;
     });
   }
- openTab(e: MatTabChangeEvent) {
-    console.log(e.index);
-    switch (e.index) {
-      case 0:
-        this.router.navigateByUrl('/link-to-qr');
-        break;
-      case 1:
-        this.router.navigateByUrl('/qr-to-link');
-        break;
-      case 2:
-        this.router.navigateByUrl('/my-links');
-            break;
-    }
- }
 }

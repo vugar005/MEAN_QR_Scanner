@@ -5,16 +5,18 @@
   <!--</select>-->
 <!--</div>-->
 
-<div [hidden]="!hasCameras">
-
+<div [hidden]="!hasCameras" class="d-flex flex-column">
+   <div class="d-flex justify-content-center">
+   
   <zxing-scanner #scanner class="test-class" start="true" [device]="selectedDevice"
-                 (camerasFound)="onCamerasFound($event)"
-                 (scanSuccess)="handleQrCodeResult($event)"
-                 (scanError)="onScanError()"
-                 (scanFailure)="onScanError()"
-  ></zxing-scanner>
+  (camerasFound)="onCamerasFound($event)"
+  (scanSuccess)="handleQrCodeResult($event)"
+  (scanError)="onScanError()"
+  (scanFailure)="onScanError()"
+></zxing-scanner>
 
-  <h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
+<h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
+   </div>
 
   <p>
     Result:

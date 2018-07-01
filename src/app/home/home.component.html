@@ -1,9 +1,38 @@
 <app-header></app-header>
 
-<mat-tab-group (focusChange)="openTab($event)">
-  <mat-tab label="Link To QR Code" > </mat-tab>
-  <mat-tab label="QR To URL Link" ></mat-tab>
-  <mat-tab label="My Links" *ngIf="authenticated"></mat-tab>
-</mat-tab-group>
+<div class="container-fluid">
+<div class="row justify-content-center">
+  <div  [ngClass]= "authenticated ? 'col-sm-6': 'col-sm-4'">
+      <!-- <mat-tab-group >
+          <mat-tab label="Link To QR Code" > <a routerLink="'/link-to-qr'" ></a> </mat-tab>
+          <mat-tab label="QR To URL Link"  ><a  [routerLink]="['/qr-to-link']"></a> </mat-tab>
+          <mat-tab label="My Links" *ngIf="authenticated"></mat-tab>
+        </mat-tab-group> -->
+
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link
+               *ngFor="let link of links"
+               [routerLink]="[link.path]"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+               {{link.label}}
+            </a>
+            
+          </nav>
+  </div>
+</div>  
+</div>
+
+
+<!-- 
+<div class="co">
+
+    <mat-tab-group (focusChange)="openTab($event)">
+        <mat-tab label="Link To QR Code" > </mat-tab>
+        <mat-tab label="QR To URL Link" ></mat-tab>
+        <mat-tab label="My Links" *ngIf="authenticated"></mat-tab>
+      </mat-tab-group>
+
+</div> -->
 
 <router-outlet></router-outlet>
