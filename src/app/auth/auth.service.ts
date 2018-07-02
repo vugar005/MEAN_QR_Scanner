@@ -66,7 +66,7 @@ export class AuthService {
       );
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<any> {
     const authData: AuthData = { email: email, password: password };
     return this.http
       .post<{ token: string; expiresIn: number; user: User }>(
@@ -96,6 +96,7 @@ export class AuthService {
               // return empty();
                return of(this.sharedService.createNotification('error', 'Wrong username or password', 'OOPS'));
             }
+            return of(this.sharedService.createNotification('error', 'Unexpeced error', 'OOPS'));
           }
         ));
   }

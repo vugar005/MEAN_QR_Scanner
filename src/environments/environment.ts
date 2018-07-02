@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'https://codepass.net/api'
+ // apiUrl: 'http://qrscannode.pci8q39ym9.us-east-2.elasticbeanstalk.com/api'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as

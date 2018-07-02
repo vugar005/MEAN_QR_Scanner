@@ -51,12 +51,12 @@ export class QrService {
     return qrCode;
   }
     encryptData(data, key: string) {
-    const  ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), key);
-    return ciphertext.toString();
+       const  ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), '123');
+       return ciphertext.toString();
   }
    decyptData(cipherText) {
-    const bytes  = CryptoJS.AES.decrypt(cipherText.toString(), this.user.id.toString());
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      const bytes  = CryptoJS.AES.decrypt(cipherText.toString(), '123');
+      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }
   removeQr(id): Observable<any> {
     return this.http.delete(`${BACKEND_URL}/${id}`);
