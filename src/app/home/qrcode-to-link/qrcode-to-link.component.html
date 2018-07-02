@@ -7,7 +7,7 @@
 
 <div [hidden]="!hasCameras" class="d-flex flex-column">
    <div class="d-flex justify-content-center">
-   
+
   <zxing-scanner #scanner class="test-class" start="true" [device]="selectedDevice"
   (camerasFound)="onCamerasFound($event)"
   (scanSuccess)="handleQrCodeResult($event)"
@@ -15,35 +15,26 @@
   (scanFailure)="onScanError()"
 ></zxing-scanner>
 
-<h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
-   </div>
-
-  <p>
-    Result:
+  <p *ngIf="qrResultString">
+    Nəticə:
     <strong>{{ qrResultString }}</strong>
   </p>
 
 </div>
-
-<div *ngIf="!hasCameras && hasPermission === true">
-
-  <h1>Looks like your actual device does not has cameras, or I could no find'em. </h1>
-
+<div *ngIf="!hasCameras" class="noCameras">
+  <h3>Kamera tapılmadı</h3>
 </div>
 
-<div *ngIf="hasPermission === undefined">
-
-  <h1>Waiting for permissions.</h1>
+<div *ngIf="hasPermission === undefined && hasCameras">
 
   <blockquote>
-    <h2>If your device does not has cameras, no permissions will be asked.</h2>
+    <h3>Xahiş olunur kameraya icaze verin</h3>
   </blockquote>
 
 </div>
 
-<div *ngIf="hasPermission === false">
+<div *ngIf="hasPermission === false && hasCameras">
 
-  <h1>You denied the camera permissions, we can't scan anything without it. 😪</h1>
+  <h1>Siz kamerani blokladiz. Kamera görsənmiyecək!</h1>
 
 </div>
-

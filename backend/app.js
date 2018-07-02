@@ -1,3 +1,4 @@
+const httpsRedirect = require('express-https-redirect');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -12,10 +13,19 @@ mongoose
   )
   .then(() => {
     console.log("Connected to database!");
+    console.log("3");
   })
   .catch((er) => {
     console.log(er);
   });
+// app.use("/", httpsRedirect(true));
+app.enable('trust proxy');
+app.use(function(req, res, next) {
+  if (req.secure){
+    return next();
+  }
+  res.redirect("https://" + req.headers.host + req.url);
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());

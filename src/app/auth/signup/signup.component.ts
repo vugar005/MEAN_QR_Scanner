@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
+import {noop} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,8 +15,9 @@ export class SignupComponent implements OnInit {
   hide2 = true;
   isLoading: boolean;
   constructor(private form: FormBuilder,
-              private authService: AuthService) {
-             }
+              private authService: AuthService,
+              private router: Router
+            ) {}
 
   ngOnInit() {
     this.signUpFom = this.form.group({
@@ -30,6 +33,9 @@ export class SignupComponent implements OnInit {
     if (!this.signUpFom.valid) {return; }
     console.log(this.signUpFom);
     this.isLoading = true;
-    this.authService.createUser(this.signUpFom.value.email, this.signUpFom.value.password);
+    this.authService.createUser(this.signUpFom.value.email, this.signUpFom.value.password)
+      .subscribe((res) => {
+       this.router.navigate(['']);
+      }, noop, () => this.isLoading = false);
   }
 }

@@ -54,7 +54,7 @@ export class QrService {
     const  ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), key);
     return ciphertext.toString();
   }
-  private decyptData(cipherText) {
+   decyptData(cipherText) {
     const bytes  = CryptoJS.AES.decrypt(cipherText.toString(), this.user.id.toString());
     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }

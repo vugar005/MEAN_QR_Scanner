@@ -10,6 +10,9 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.1.6",
-    "mongoose-unique-validator": "^2.0.1"
+    "mongoose-unique-validator": "^2.0.1",
+    "path": "^0.12.7",
+    "express-http-to-https": "^1.1.4",
+    "express-https-redirect": "^1.0.0"
   }
 }

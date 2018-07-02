@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ZXingScannerComponent} from '@zxing/ngx-scanner';
+import {QrService} from '../qr.service';
 
 @Component({
   selector: 'app-qrcode-to-link',
@@ -16,7 +17,7 @@ export class QrcodeToLinkComponent implements OnInit {
 
   availableDevices: MediaDeviceInfo[];
   selectedDevice: MediaDeviceInfo;
-  constructor() { }
+  constructor(private qrService: QrService) { }
 
   ngOnInit() {
     this.scanner.permissionResponse.subscribe((answer: boolean) => {
@@ -26,14 +27,19 @@ export class QrcodeToLinkComponent implements OnInit {
   onCamerasFound(cameras: MediaDeviceInfo[]) {
     console.log('cameras');
    if (cameras) {
-     console.log(cameras)
+     console.log(cameras);
      this.hasCameras = true;
-     this.selectedDevice = cameras[0];
+      if (cameras[1]) {
+        this.selectedDevice = cameras[1];
+      } else {
+        this.selectedDevice = cameras[0];
+      }
    }
   }
   handleQrCodeResult(resultString: string) {
-    alert( resultString);
-    this.qrResultString = resultString;
+    const res = this.qrService.decyptData(resultString);
+    alert( res);
+    this.qrResultString = res;
   }
 
   onDeviceSelectChange(selectedValue: string) {

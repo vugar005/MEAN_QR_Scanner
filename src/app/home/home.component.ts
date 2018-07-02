@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTabChangeEvent} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
@@ -12,8 +11,7 @@ export class HomeComponent implements OnInit {
   authenticated: boolean;
   links = [
     {path: '/link-to-qr', label: 'Link To QR Code' },
-    {path: '/qr-to-link', label: 'QR To URL Link' },
-    {path: '/my-links', label: 'My Links' }
+    {path: '/qr-to-link', label: 'QR To URL Link' }
   ];
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 

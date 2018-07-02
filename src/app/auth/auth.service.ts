@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
-import {ReplaySubject, Subject} from 'rxjs';
+import {empty, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {AuthData} from './auth-data.model';
 import {User} from './models/user.model';
 import {SharedService} from '../shared/shared.service';
 import {environment} from '../../environments/environment';
+import {catchError, map} from 'rxjs/operators';
 const BACKEND_URL = environment.apiUrl + '/user';
 
 @Injectable({ providedIn: 'root' })
@@ -30,24 +31,50 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
+  createUser(email: string, password: string): Observable<any> {
     const authData: AuthData = { email: email, password: password };
-    this.http
-      .post(`${BACKEND_URL}/signup`, authData)
-      .subscribe(response => {
-        console.log(response);
-        this.router.navigate(['/']);
-      });
+    return this.http
+      .post<{ token: string; expiresIn: number; user: User }>(`${BACKEND_URL}/signup`, authData)
+      .pipe(
+        map(response => {
+          const token = response.token;
+          const fetchedUser = response.user;
+          this.token = token;
+          if (token) {
+            const expiresInDuration = response.expiresIn;
+            this.setAuthTimer(expiresInDuration);
+            this.isAuthenticated = true;
+            this.authStatusListener.next(true);
+            this.user = fetchedUser;
+            const now = new Date();
+            console.log(this.user);
+            console.log(expiresInDuration);
+            const expirationDate = new Date(now.getTime() + expiresInDuration * 10000);
+            console.log(expirationDate);
+            this.saveAuthData(token, expirationDate, fetchedUser);
+            this.router.navigate(['/']);
+          }
+        }),
+        catchError((er) => {
+          if (er.error.error.errors.email.kind === 'unique') {
+            this.sharedService.createNotification('error', 'Bu user artıq qeydiyyatdan keçib', 'OOPS');
+          } else {
+            this.sharedService.createNotification('error', 'Xeta bash verdi', 'OOPS');
+          }
+          return empty();
+        })
+      );
   }
 
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
-    this.http
+    return this.http
       .post<{ token: string; expiresIn: number; user: User }>(
         `${BACKEND_URL}/login`,
         authData
       )
-      .subscribe(response => {
+      .pipe(
+      map(response => {
         const token = response.token;
         const fetchedUser = response.user;
         this.token = token;
@@ -63,11 +90,14 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, fetchedUser);
           this.router.navigate(['/']);
         }
-      }, (er: HttpErrorResponse) => {
-        if (er.error['message'] === 'Auth failed') {
-          this.sharedService.createNotification('error', 'Wrong username or password', 'OOPS');
-        }
-      });
+      }),
+        catchError((er) => {
+            if (er.error['message'] === 'Auth failed') {
+              // return empty();
+               return of(this.sharedService.createNotification('error', 'Wrong username or password', 'OOPS'));
+            }
+          }
+        ));
   }
 
   autoAuthUser() {
