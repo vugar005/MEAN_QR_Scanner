@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {QrService} from '../qr.service';
 import {QrCode} from '../models/qrCode';
-
+import * as printStyles from '../print-styles';
 @Component({
   selector: 'app-my-links',
   templateUrl: './my-links.component.html',
@@ -19,6 +19,9 @@ export class MyLinksComponent implements OnInit {
       .subscribe((res) => {
         this.qrCodes = res;
       });
+  }
+  onPrint(element) {
+     this.qrService.printQR_Code(element);
   }
   onRemove(id) {
     this.qrService.removeQr(id)

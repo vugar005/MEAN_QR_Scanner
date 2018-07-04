@@ -12,29 +12,27 @@
   (camerasFound)="onCamerasFound($event)"
   (scanSuccess)="handleQrCodeResult($event)"
   (scanError)="onScanError()"
-  (scanFailure)="onScanError()"
+  (scanComplete)="onScanError()"
 ></zxing-scanner>
 
-  <p *ngIf="qrResultString">
-    Nəticə:
-    <strong>{{ qrResultString }}</strong>
-  </p>
+
 
 </div>
 <div *ngIf="!hasCameras" class="noCameras">
-  <h3>Camera not found</h3>
+  <h3>Cameras not found</h3>
 </div>
 
 <div *ngIf="hasPermission === undefined && hasCameras">
 
   <blockquote>
-    <h3>Xahiş olunur kameraya icaze verin</h3>
+    <h3>Please allow camera usage</h3>
   </blockquote>
 
 </div>
 
 <div *ngIf="hasPermission === false && hasCameras">
 
-  <h1>Siz kamerani blokladiz. Kamera görsənmiyecək!</h1>
+  <h1>Sorry, you blocked camera. Camera will not start!</h1>
 
+</div>
 </div>

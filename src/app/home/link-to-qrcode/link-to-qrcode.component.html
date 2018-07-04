@@ -2,17 +2,24 @@
   <form [formGroup]="qrForm" (ngSubmit)="generateQrCode()">
     <div class="formContent">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="example.com" value="" [formControlName]="'urlName'">
+        <input matInput placeholder="example.com" value=""  [formControlName]="'urlName'">
         <span matPrefix>www. &nbsp;</span>
-        <mat-error *ngIf="qrForm.controls['urlName'].hasError('required')">URL daxil edilməyib</mat-error>
+        <mat-error *ngIf="qrForm.controls['urlName'].hasError('required')">Please enter URL</mat-error>
+        <mat-error *ngIf="qrForm.controls['urlName'].hasError('validUrl')">Please enter valid URL</mat-error>
       </mat-form-field>
       <button mat-button color="accent" > Generate</button>
     </div>
   </form>
 
 
-  <div class="qrBox " *ngIf="qrString">
-    <qrcode [qrdata]="qrString" [size]="256" [level]="'M'"></qrcode>
+  <div class="qrBox " *ngIf="encryptedUrl">
+    <div #forPrint >
+      <div id="printable" class="printable" >
+        <p class="printUrl">{{url}}</p>
+        <qrcode [qrdata]="encryptedUrl"  [level]="'M'" [size]="256"></qrcode>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" class="mt-3" (click)="onPrint(forPrint)" >Print</button>
   </div>
 
 </div>

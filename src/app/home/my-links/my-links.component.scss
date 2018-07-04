@@ -9,3 +9,10 @@
   height: calc(100vh - 160px);
   width: 100vw;
 }
+
+.printable {
+  .printUrl {
+    font-size: 50px;
+    display: none;
+  }
+}

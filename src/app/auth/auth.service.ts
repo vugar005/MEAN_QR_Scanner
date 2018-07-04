@@ -6,7 +6,7 @@ import {AuthData} from './auth-data.model';
 import {User} from './models/user.model';
 import {SharedService} from '../shared/shared.service';
 import {environment} from '../../environments/environment';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, delay, map, shareReplay} from 'rxjs/operators';
 const BACKEND_URL = environment.apiUrl + '/user';
 
 @Injectable({ providedIn: 'root' })
@@ -36,6 +36,7 @@ export class AuthService {
     return this.http
       .post<{ token: string; expiresIn: number; user: User }>(`${BACKEND_URL}/signup`, authData)
       .pipe(
+        shareReplay(),
         map(response => {
           const token = response.token;
           const fetchedUser = response.user;
@@ -74,7 +75,8 @@ export class AuthService {
         authData
       )
       .pipe(
-      map(response => {
+        shareReplay(),
+        map(response => {
         const token = response.token;
         const fetchedUser = response.user;
         this.token = token;

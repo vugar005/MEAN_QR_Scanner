@@ -7,11 +7,11 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './home/header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatProgressSpinnerModule,
+  MatInputModule, MatMenuModule, MatProgressSpinnerModule,
   MatSelectModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -31,6 +31,8 @@ import { registerLocaleData } from '@angular/common';
 import lcoaleAz from '@angular/common/locales/az-Latn';
 registerLocaleData(lcoaleAz);
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ScanSuccessDialogComponent } from './home/scan-success-dialog/scan-success-dialog.component';
+import { QrUrlDialogComponent } from './home/qr-url-dialog/qr-url-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,13 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     QrcodeToLinkComponent,
     LoginComponent,
     SignupComponent,
-    MyLinksComponent
+    MyLinksComponent,
+    ScanSuccessDialogComponent,
+    QrUrlDialogComponent
+  ],
+  entryComponents: [
+    ScanSuccessDialogComponent,
+    QrUrlDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +64,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatDialogModule,
     HttpClientModule,
+    MatMenuModule,
     ReactiveFormsModule,
     QRCodeModule,
     ZXingScannerModule,

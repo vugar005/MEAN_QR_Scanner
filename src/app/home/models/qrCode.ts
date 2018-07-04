@@ -5,6 +5,7 @@ interface Author {
 export interface QrCode {
   id: number;
   url: string;
+  encryptedUrl: string;
   date: string;
   author: Author;
 }

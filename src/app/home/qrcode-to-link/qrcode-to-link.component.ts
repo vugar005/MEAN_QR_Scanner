@@ -1,6 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ZXingScannerComponent} from '@zxing/ngx-scanner';
 import {QrService} from '../qr.service';
+import {MatDialog} from '@angular/material';
+import {ScanSuccessDialogComponent} from '../scan-success-dialog/scan-success-dialog.component';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-qrcode-to-link',
@@ -17,9 +20,16 @@ export class QrcodeToLinkComponent implements OnInit {
 
   availableDevices: MediaDeviceInfo[];
   selectedDevice: MediaDeviceInfo;
-  constructor(private qrService: QrService) { }
+  constructor(private qrService: QrService, private dialog: MatDialog, private sharedService: SharedService) { }
 
   ngOnInit() {
+    // setTimeout(() => {
+    //   this.dialog.open(ScanSuccessDialogComponent, {
+    //     data: {
+    //       url: 'www.pixabay.com'
+    //     }
+    //   });
+    // }, 500)
     this.scanner.permissionResponse.subscribe((answer: boolean) => {
       this.hasPermission = answer;
     });
@@ -37,9 +47,19 @@ export class QrcodeToLinkComponent implements OnInit {
    }
   }
   handleQrCodeResult(resultString: string) {
-    const res = this.qrService.decyptData(resultString);
-    alert( res);
-    this.qrResultString = res;
+    const result: string = this.qrService.decyptData(resultString);
+    if (result) {
+      const dialogRef = this.dialog.open(ScanSuccessDialogComponent, {
+        data: {
+          url: result
+        }
+      });
+      dialogRef.afterClosed().subscribe((res: boolean) => {
+        if (res) {
+          window.location.assign(`http://${result}`);
+        }
+      } );
+    }
   }
 
   onDeviceSelectChange(selectedValue: string) {
@@ -47,6 +67,5 @@ export class QrcodeToLinkComponent implements OnInit {
     this.selectedDevice = this.scanner.getDeviceById(selectedValue);
   }
   onScanError() {
- //   alert('error happened during scanning');
   }
 }

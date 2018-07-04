@@ -1,0 +1,14 @@
+<p class="text" mat-dialog-title>{{data?.url}}</p>
+<div class="content">
+  <div class="thumbnail">
+    <!--<iframe [src]='url' class="iframe"></iframe>-->
+    <img *ngIf="data?.url" src="https://apileap.com/api/screenshot/v1/urltoimage?access_key=d7f742b9a275491aba75eb9bb2512ff8&url=http://{{data?.url}}">
+    <!--<img src="https://shrinktheweb.snapito.io/v2/webshot/spu-ea68c8-ogi2-3cwn3bmfojjlb56e?size=800x0&screen=1024x768&url={{data?.url}}">-->
+  </div>
+  <div class="actions">
+    <mat-dialog-actions>
+      <button mat-raised-button  color="accent" [mat-dialog-close]="true">Print</button>
+      <button mat-raised-button  color="primary" [mat-dialog-close]="true">Səhifəyə keçid</button>
+    </mat-dialog-actions>
+  </div>
+</div>

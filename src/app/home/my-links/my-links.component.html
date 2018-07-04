@@ -13,15 +13,21 @@
       <mat-accordion>
         <mat-expansion-panel *ngFor="let qr of qrCodes">
           <mat-expansion-panel-header>
-            <mat-panel-title style="min-width: 90px;"> 
+            <mat-panel-title style="min-width: 90px;">
               {{qr.url}}
             </mat-panel-title>
             <mat-panel-description>
              {{qr.date |  date:'MM/dd/yyyy' }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-               <qrcode [qrdata]="qr.url"  [level]="'M'" [size]="150"></qrcode>
+              <div #forPrint >
+                <div id="printable" class="printable">
+                  <p class="printUrl">www.{{qr.url}}</p>
+                  <qrcode [qrdata]="qr.encryptedUrl"  [level]="'M'" [size]="150"></qrcode>
+                </div>
+              </div>
           <mat-action-row>
+            <button mat-button color="primary" (click)="onPrint(forPrint)">Print</button>
             <button mat-button color="warn" (click)="onRemove(qr?.id)">Delete</button>
           </mat-action-row>
         </mat-expansion-panel>
