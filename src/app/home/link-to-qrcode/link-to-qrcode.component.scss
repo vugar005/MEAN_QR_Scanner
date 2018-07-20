@@ -18,8 +18,15 @@
   }
 }
 #printable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .printUrl {
     display: none;
+  }
+  .enCryUrl {
+    font-size: 14px;
+    padding-bottom: 10px;
   }
 }
 .qrBox {

@@ -1,6 +1,11 @@
 <div class="singInContent">
   <div class="logo">login</div>
   <div class="login-form">
+    <div class="toHome" routerLink="/">
+      <div class="icon">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </div>
+    </div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="main-login-form">
         <div class="login-group">
@@ -25,7 +30,7 @@
       </div>
     </form>
     <div class="etc-login-form">
-      <p>forgot your password? <a >click here</a></p>
+      <!--<p>forgot your password? <a >click here</a></p>-->
       <p>new user? <a routerLink="/signup">create new account</a></p>
     </div>
 

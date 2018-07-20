@@ -4,6 +4,7 @@
 .form-group {
   margin-bottom: 0;
 }
+
 .singInContent {
   display: flex;
   flex-direction: column;
@@ -18,6 +19,17 @@
     font-size: 25px;
   }
   .login-form {
+    position: relative;
+    .toHome {
+      .icon {
+        line-height: 0;
+        position: absolute;
+        top: -65px;
+        left: -27px;
+        cursor: pointer;
+        color: grey;
+      }
+    }
     .main-login-form {
       display: flex;
       align-items: center;

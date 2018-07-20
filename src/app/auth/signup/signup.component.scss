@@ -31,6 +31,17 @@ recaptcha {
   }
   .login-form {
     font-size: 14px;
+    position: relative;
+    .toHome {
+      .icon {
+        line-height: 0;
+        position: absolute;
+        top: -65px;
+        left: -27px;
+        cursor: pointer;
+        color: grey;
+      }
+    }
     .main-login-form {
       display: flex;
       align-items: center;

@@ -1,38 +1,49 @@
 <!--<div *ngIf="availableDevices">-->
-  <!--<select (change)="onDeviceSelectChange($event.target.value)">-->
-    <!--<option value="" [selected]="!selectedDevice">No Device</option>-->
-    <!--<option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>-->
-  <!--</select>-->
+<!--<select (change)="onDeviceSelectChange($event.target.value)">-->
+<!--<option value="" [selected]="!selectedDevice">No Device</option>-->
+<!--<option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>-->
+<!--</select>-->
 <!--</div>-->
 
 <div [hidden]="!hasCameras" class="d-flex flex-column">
-   <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center">
 
-  <zxing-scanner #scanner class="test-class" start="true" [device]="selectedDevice"
-  (camerasFound)="onCamerasFound($event)"
-  (scanSuccess)="handleQrCodeResult($event)"
-  (scanError)="onScanError()"
-  (scanComplete)="onScanError()"
-></zxing-scanner>
+    <zxing-scanner #scanner class="test-class" start="true" [device]="selectedDevice"
+                   (camerasFound)="onCamerasFound($event)"
+                   (scanSuccess)="handleQrCodeResult($event)"
+                   (scanError)="onScanError()"
+                   (scanComplete)="onScanError()"
+    ></zxing-scanner>
 
 
+  </div>
+  <div *ngIf="!hasCameras" class="noCameras">
+    <h3>Cameras not found</h3>
+  </div>
 
-</div>
-<div *ngIf="!hasCameras" class="noCameras">
-  <h3>Cameras not found</h3>
-</div>
+  <div *ngIf="hasPermission === undefined && hasCameras">
 
-<div *ngIf="hasPermission === undefined && hasCameras">
+    <blockquote>
+      <h3>Please allow camera usage</h3>
+    </blockquote>
 
-  <blockquote>
-    <h3>Please allow camera usage</h3>
-  </blockquote>
+  </div>
 
-</div>
+  <div *ngIf="hasPermission === false && hasCameras">
 
-<div *ngIf="hasPermission === false && hasCameras">
+    <h1>Sorry, you blocked camera. Camera will not start!</h1>
 
-  <h1>Sorry, you blocked camera. Camera will not start!</h1>
+  </div>
 
-</div>
+  <div class="content">
+    <p> OR Manual Decode:</p>
+    <form [formGroup]="decodeForm" (ngSubmit)="onManualDecode()">
+      <div class="input">
+        <mat-form-field>
+          <input matInput placeholder="Enter QR Code" [formControlName]="'code'">
+        </mat-form-field>
+        <button mat-button color="accent" type="submit">Decode</button>
+      </div>
+    </form>
+  </div>
 </div>

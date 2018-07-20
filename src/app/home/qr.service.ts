@@ -66,8 +66,8 @@ export class QrService {
        const bytes  = CryptoJS.AES.decrypt(cipherText.toString(), '123');
        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
      } catch (er) {
-       console.log(er)
-       this.sharedService.createNotification('error', 'Error on scanning', 'OOPS');
+       console.log(er);
+       this.sharedService.createNotification('error', 'Error on decoding', 'OOPS');
        return;
      }
   }

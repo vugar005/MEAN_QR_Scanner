@@ -15,6 +15,8 @@
   <div class="qrBox " *ngIf="encryptedUrl">
     <div #forPrint >
       <div id="printable" class="printable" >
+        <p>QR code: </p>
+        <p class="enCryUrl">{{encryptedUrl}}</p>
         <p class="printUrl">{{url}}</p>
         <qrcode [qrdata]="encryptedUrl"  [level]="'M'" [size]="256"></qrcode>
       </div>
