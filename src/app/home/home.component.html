@@ -1,21 +1,29 @@
-<app-header></app-header>
-
-<div class="container-fluid">
-<div class="row justify-content-center">
-  <div  style="width: 300px">
-        <nav mat-tab-nav-bar>
-            <a mat-tab-link
-               *ngFor="let link of links"
-               [routerLink]="[link.path]"
-               routerLinkActive #rla="routerLinkActive"
-               [active]="rla.isActive">
-               {{link.label}}
-            </a>
-
-          </nav>
+<div class="container-fluid h-100" >
+  <div class="row h-100">
+    <div class="col-md-7 col-xl-6  p-0 d-none d-md-block">
+      <div class="cover-photo">
+        <div class="logo">
+          <img src="./assets/code-pass.png">
+        </div>
+        <div class="logo-neuron">
+          <img src="./assets/neuron-logo.png">
+        </div>
+        </div>
+      </div>
+    <div class="col-12 col-md-5 col-xl-6  main-content p-0" >
+      <app-header></app-header>
+      <div [@flipInY]="flipInY">
+        <div  class="mat-navbar">
+          <a *ngFor="let link of links"
+             [routerLink]="[link.path]"
+             (click)="onRouteChange()"
+             routerLinkActive="active"
+          >
+            {{link.label}}
+          </a>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-
-
-<router-outlet></router-outlet>
+  </div>

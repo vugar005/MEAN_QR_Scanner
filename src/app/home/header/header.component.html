@@ -1,11 +1,11 @@
 <div class="header">
   <div class="brand">
-    <p>CodePass</p>
+<!--    <p>CodePass</p>-->
   </div>
   <div class="authActions">
     <p *ngIf="authenticated" routerLink="/my-links" class="login pr-2"> My Links </p>
-    <p  *ngIf="!authenticated" routerLink="/login" class="login pl-2"> Login</p>
-    <p class="signUp pl-2" *ngIf="!authenticated" routerLink="/signup">SignUp</p>
+    <p  *ngIf="!authenticated" routerLink="/login" class="login pl-2"> SIGN IN</p>
+    <p class="signUp pl-2" *ngIf="!authenticated" routerLink="/signup">SIGN UP</p>
      <div class="menu pl-2" *ngIf="authenticated">
        <button mat-button [matMenuTriggerFor]="menu">{{user?.email}}</button>
        <mat-menu #menu="matMenu">

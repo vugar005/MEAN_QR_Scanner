@@ -1,13 +1,14 @@
-<div class="urlInput">
+<div class="urlInput" >
   <form [formGroup]="qrForm" (ngSubmit)="generateQrCode()">
     <div class="formContent">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="example.com" value=""  [formControlName]="'urlName'">
-        <span matPrefix>www. &nbsp;</span>
+      <mat-form-field style="width: 135px">
+        <input matInput placeholder="EXAMPLE.COM" [value]="qrForm?.controls['urlName'].value | uppercase"  [formControlName]="'urlName'">
+        <span matPrefix>WWW. &nbsp;</span>
         <mat-error *ngIf="qrForm.controls['urlName'].hasError('required')">Please enter URL</mat-error>
         <mat-error *ngIf="qrForm.controls['urlName'].hasError('validUrl')">Please enter valid URL</mat-error>
       </mat-form-field>
-      <button mat-button color="accent" > Generate</button>
+    <!--  <button class="custom-btn"><span>GENERATE</span></button>-->
+      <button mat-button color="accent" class="custom-btn" >GENERATE </button>
     </div>
   </form>
 
@@ -16,12 +17,12 @@
     <div #forPrint >
       <div id="printable" class="printable" >
         <p>QR code: </p>
-        <p class="enCryUrl">{{encryptedUrl}}</p>
+        <p class="enCryUrl" style="letter-spacing: 1.5px">{{encryptedUrl}}</p>
         <p class="printUrl">{{url}}</p>
         <qrcode [qrdata]="encryptedUrl"  [level]="'M'" [size]="256"></qrcode>
       </div>
     </div>
-    <button mat-raised-button color="primary" class="mt-3" (click)="onPrint(forPrint)" >Print</button>
+    <button mat-raised-button color="primary" class="printBtn" (click)="onPrint(forPrint)" >PRINT</button>
   </div>
 
 </div>
